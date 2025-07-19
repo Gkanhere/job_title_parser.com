@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Title Parser</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #111;
+      color: #f5f5f5;
+      transition: background 0.4s, color 0.4s;
+    }
+    .light-mode {
+      background: #f5f5f5;
+      color: #111;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 2rem;
+      color: #00ffc3;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    #toggleMode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background-color: #00ffc3;
+      color: #000;
+      cursor: pointer;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      resize: vertical;
+      background-color: #222;
+      color: #fff;
+    }
+    .light-mode textarea {
+      background-color: #eee;
+      color: #111;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    button:not(#toggleMode) {
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(to right, #00ffc3, #00bcd4);
+      color: #000;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .error {
+      text-align: center;
+      color: #ff4d4d;
+      font-weight: bold;
+      margin: 10px 0;
+      animation: pulse 0.5s infinite alternate;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.05); opacity: 0.8; }
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #333;
+      color: #00ffc3;
+    }
+    td {
+      background: #222;
+    }
+    .light-mode th {
+      background: #ccc;
+      color: #00b3a1;
+    }
+    .light-mode td {
+      background: #fff;
+      color: #111;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+    }
+    .light-mode footer {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <button id="toggleMode" onclick="toggleMode()">☀️ Light</button>
+  <div class="container">
+    <h1>Job Title Parser</h1>
+    <textarea id="jobInput" placeholder="Enter up to 500 job titles (one per line)..."></textarea>
+    <div class="buttons">
+      <button onclick="parseJobs()">Parse</button>
+      <button onclick="copyResults()">Copy</button>
+      <button onclick="downloadCSV()">Download</button>
+    </div>
+    <div id="error" class="error"></div>
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Original Title</th>
+          <th>Role</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <footer>
+      Devloped by Gaurav Kanhere | 📞+91-9834565205 | <a href="https://github.com/Gkanhere/" target="_blank" style="color:#00ffc3">GitHub</a>
+    </footer>
+  </div>
+<script>
+  const rolesMap = {
+    "C-Level": ["ceo", "cio", "cto", "cfo", "coo", "cko", "chro", "cdo", "cco", "cxo", "cino", "cso", "cmo", "cro", "chief"],
+    "Vice President": ["vice president", "vp"],
+    "President": ["president"],
+    "Director": ["director"],
+    "Head": ["head"],
+    "Manager": ["manager"],
+    "Partner": ["partner"],
+    "Owner": ["owner"]
+  };
+
+  const ignoredRoles = ["assistant", "executive", "supervisor"];
+
+  const departments = {
+    "IT": ["cio", "developer", "software", "java", "cloud", "sql", "devops", "network", "cyber", "security", "frontend", "backend", "ai", "ml", "data", "python", "infrastructure", "database", "qa", "tester", "full stack", "big data", "etl", "blockchain", "server", "web", "kubernetes", "docker"],
+    "HR": ["hr", "human resources", "talent", "recruiter", "people operations", "staffing"],
+    "Finance": ["finance", "accounting", "budget", "tax", "audit", "payroll", "investment", "controller", "financial", "cfo"],
+    "Sales": ["sales", "sale", "account executive", "b2b", "b2c", "client partner", "relationship", "channel", "business development"],
+    "Marketing": ["marketing", "seo", "sem", "digital", "brand", "social media", "market", "performance", "growth", "content", "demand"],
+    "Operations": ["operations", "logistics", "supply chain", "process", "fleet", "admin", "coordinator"]
+  };
+
+  function detectRole(title) {
+    const words = title.toLowerCase().split(/[^a-z0-9+]/);
+    for (let word of words) {
+      if (ignoredRoles.includes(word)) continue;
+      for (let role in rolesMap) {
+        if (rolesMap[role].includes(word)) {
+          return role;
+        }
+      }
+    }
+    return "Staff";
+  }
+
+  function detectDepartment(title) {
+    const words = title.toLowerCase().split(/[^a-z0-9+]/);
+    for (let word of words) {
+      for (let dept in departments) {
+        if (departments[dept].includes(word)) {
+          return dept;
+        }
+      }
+    }
+    return "Operations";
+  }
+
+  function parseJobs() {
+    const input = document.getElementById("jobInput").value.trim();
+    const errorBox = document.getElementById("error");
+    const tbody = document.querySelector("#resultsTable tbody");
+    tbody.innerHTML = "";
+    errorBox.innerText = "";
+
+    if (!input) {
+      errorBox.innerText = "Please enter job titles!";
+      return;
+    }
+
+    const titles = input.split("\n").filter(x => x.trim() !== "");
+    if (titles.length > 500) {
+      errorBox.innerText = "Maximum 500 job titles allowed.";
+      return;
+    }
+
+    titles.forEach((title, i) => {
+      const role = detectRole(title);
+      const dept = detectDepartment(title);
+      const row = `<tr>
+        <td>${i + 1}</td>
+        <td>${title}</td>
+        <td>${role}</td>
+        <td>${dept}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
+
+  function copyResults() {
+    const table = document.querySelector("#resultsTable");
+    const rows = [...table.querySelectorAll("tbody tr")];
+    if (!rows.length) {
+      alert("Please parse job titles first!");
+      return;
+    }
+
+    let copyText = "Original Title\tRole\tDepartment\n";
+    rows.forEach(row => {
+      const cols = row.querySelectorAll("td");
+      copyText += `${cols[1].innerText}\t${cols[2].innerText}\t${cols[3].innerText}\n`;
+    });
+    navigator.clipboard.writeText(copyText).then(() => alert("Copied!"));
+  }
+
+  function downloadCSV() {
+    const table = document.querySelector("#resultsTable");
+    const rows = [...table.querySelectorAll("tbody tr")];
+    if (!rows.length) {
+      alert("Please parse job titles first!");
+      return;
+    }
+
+    let csv = "Original Title,Role,Department\n";
+    rows.forEach(row => {
+      const cols = row.querySelectorAll("td");
+      csv += `"${cols[1].innerText}","${cols[2].innerText}","${cols[3].innerText}"\n`;
+    });
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "job_titles_parsed.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function toggleMode() {
+    const body = document.body;
+    const toggleBtn = document.getElementById("toggleMode");
+    body.classList.toggle("light-mode");
+    toggleBtn.innerText = body.classList.contains("light-mode") ? "🌙 Dark" : "☀️ Light";
+  }
+</script>
+
+</body>
+</html>
+
