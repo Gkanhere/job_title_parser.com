@@ -12,6 +12,126 @@
       color: #f5f5f5;
       transition: background 0.4s, color 0.4s;
     }
+
+
+
+
+  header {
+      background-color: #424271;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #333;
+    }
+
+    .premium {
+      background-color: gold;
+      color: black;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+    }
+
+    .premium::before {
+      content: "👑";
+      margin-right: 6px;
+    }
+
+    .menu-toggle {
+      width: 30px;
+      height: 24px;
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .menu-toggle span {
+      display: block;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.4s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        position: absolute;
+        top: 65px;
+        right: 20px;
+        background-color: #1a1a2e;
+        flex-direction: column;
+        width: 200px;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        display: none;
+        animation: slideDown 0.4s ease forwards;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+
+
+
     .light-mode {
       background: #f5f5f5;
       color: #111;
@@ -62,13 +182,13 @@
       margin: 15px 0;
     }
     button:not(#toggleMode) {
-      padding: 10px 20px;
+        padding: 10px 20px;
       font-weight: bold;
       font-size: 16px;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      background: linear-gradient(to right, #00ffc3, #00bcd4);
+      background: linear-gradient(to right, #00ffc3, #cdbf29);
       color: #000;
       transition: 0.3s;
     }
@@ -112,7 +232,7 @@
       color: #111;
     }
     footer {
-      margin-top: 30px;
+      margin-top: 185px;
       text-align: center;
       font-size: 14px;
       color: #888;
@@ -120,12 +240,42 @@
     .light-mode footer {
       color: #666;
     }
+html {
+  scroll-behavior: smooth;
+}
+
+
+
   </style>
 </head>
 <body>
-  <button id="toggleMode" onclick="toggleMode()">☀️ Light</button>
+
+
+    <header>
+    <div class="logo">Job Titles Parser</div>
+
+    <div class="menu-toggle" onclick="toggleMenu(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav id="nav-menu">
+      <a href="#contacts">Contact Us</a>
+      <a href="#">API</a>
+      <a href="#">Extensions</a>
+      <a href="#">Help</a>
+      <a href="#">Login</a>
+      <a href="#" class="premium">Premium</a>
+      <a href="#"></a>
+      <a href="#"></a>
+
+    </nav>
+  </header>
+
+  <button style="margin-top: -5px;  background: linear-gradient(to right, #eeeaf5, #28133c); padding: 5px; margin-left: 20px;"  id="toggleMode" onclick="toggleMode()">☀️ Light</button>
   <div class="container">
-    <h1>Job Title Parser</h1>
+    <h1>Parse your job titles</h1>
     <textarea id="jobInput" placeholder="Enter up to 500 job titles (one per line)..."></textarea>
     <div class="buttons">
       <button onclick="parseJobs()">Parse</button>
@@ -144,8 +294,8 @@
       </thead>
       <tbody></tbody>
     </table>
-    <footer>
-      Devloped by Gaurav Kanhere | 📞+91-9834565205 | <a href="https://github.com/Gkanhere/" target="_blank" style="color:#00ffc3">GitHub</a>
+    <footer class="contacts" id="contacts">
+      Contact Us | &#9993;  gkanhere11@gmail.com | <a href="https://github.com/Gkanhere/" target="_blank" style="color:#00ffc3">GitHub</a>
     </footer>
   </div>
 <script>
@@ -163,12 +313,14 @@
   const ignoredRoles = ["assistant", "executive", "supervisor"];
 
   const departments = {
-    "IT": ["cio", "developer", "software", "java", "cloud", "sql", "devops", "network", "cyber", "security", "frontend", "backend", "ai", "ml", "data", "python", "infrastructure", "database", "qa", "tester", "full stack", "big data", "etl", "blockchain", "server", "web", "kubernetes", "docker"],
-    "HR": ["hr", "human resources", "talent", "recruiter", "people operations", "staffing"],
-    "Finance": ["finance", "accounting", "budget", "tax", "audit", "payroll", "investment", "controller", "financial", "cfo"],
-    "Sales": ["sales", "sale", "account executive", "b2b", "b2c", "client partner", "relationship", "channel", "business development"],
-    "Marketing": ["marketing", "seo", "sem", "digital", "brand", "social media", "market", "performance", "growth", "content", "demand"],
-    "Operations": ["operations", "logistics", "supply chain", "process", "fleet", "admin", "coordinator"]
+  "IT": [
+  "it","information","cio", "chief information officer", "developer", "software", "java",   "cloud", "sql", "devops", "network", "cyber", "security", "frontend",   "backend", "ai", "ml", "data", "python", "infrastructure", "database",   "qa", "tester", "full stack", "big data", "etl", "blockchain",  "server", "web", "kubernetes", "docker", "developer", "software", "frontend", "backend", "fullstack", "programmer", "coder", "java", "javascript", "typescript", "python", "golang", "ruby", "php", "csharp", "dotnet", "cplus", "react", "angular", "vue", "node", "express", "django", "flask", "spring", "laravel", "swift", "kotlin", "android", "ios", "flutter", "reactnative", "mobile", "api", "rest", "graphql", "microservices", "json", "xml", "html", "css", "tailwind", "bootstrap", "sass", "scss", "sdk", "ui", "ux","uiux", "mvc", "redux", "nextjs", "nuxt", "webpack", "babel", "vite", "npm", "yarn", "jest", "mocha", "chai", "testing", "selenium", "cypress", "playwright", "qa", "bug", "debugger", "code", "jira", "agile", "scrum", "git", "github", "bitbucket", "gitlab", "pipeline", "build", "release", "devops", "docker", "kubernetes", "terraform", "ansible", "helm", "cloud", "aws", "azure", "gcp", "lambda", "cloudfront", "cloudwatch", "cloudtrail", "cloudformation", "architect", "admin", "linux", "windows", "unix", "shell", "bash", "powershell", "sso", "vpn", "firewall", "security", "token", "ssl", "tls", "encryption", "decryption", "vault", "bastion", "prometheus", "grafana", "elk", "kibana", "datadog", "newrelic", "pagerduty", "istio", "envoy", "tracing", "jaeger", "sre",  "system", "sysadmin", "infra", "infrastructure", "intune", "sccm", "vmware", "hyperv", "citrix", "patch", "endpoint", "workstation", "remediation", "troubleshooting", "desktop", "helpdesk", "support", "technician", "servicenow", "network", "router", "switch", "wan", "dhcp", "dns", "subnet", "printer", "peripheral", "installation", "configuration", "setup", "application", "hardware", "bios", "registry", "outlook", "nac", "rmm", "bcp", "dr", "redundancy", "cluster", "itil", "service", "performance", "latency", "packet", "snmp", "syslog", "snapshot", "hypervisor", "boot", "partition", "filesystem", "volume", "disk", "drive", "ssd", "nas", "san", "storage", "tape", "failover", "cache", "buffer", "data", "database", "sql", "mysql", "postgres", "oracle", "mssql", "nosql", "mongodb", "redis", "cassandra", "dynamodb", "bigquery", "snowflake", "databricks", "datawarehouse", "etl", "elt", "dbt", "glue", "lake", "parquet", "delta", "hadoop", "hive", "spark", "pyspark", "kafka", "flink", "stream", "view", "trigger", "cursor", "normalization", "denormalization", "shard", "replica", "sync", "replication", "migration", "script", "scripting", "cron", "scheduler", "webhook", "socket", "rpc", "web", "middleware", "autoscale", "provisioning", "deployment", "nexus", "artifactory", "circleci", "travis", "jenkins", "gitops", "argocd", "flux", "certificate", "gdpr", "hipaa", ".net","soc2", "iso", "proxy", "networking", "wireless", "ethernet", "pat", "routing", "switching", "nginx", "apache", "tomcat", "jetty", "traefik", "haproxy", "ingress", "controller", "certbot", "letsencrypt", "dnsmasq", "bind", "reverse", "akamai", "cloudflare", "fastly", "edge", "baremetal", "cloudnative", "serverless", "azurefunction", "eventhub", "pubsub", "queue", "kinesis", "rabbitmq", "activemq", "mqtt", "zookeeper",  "consensus", "front end", "back end", "full stack" , "software","artificial intelligence","ai","power bi","powerbi","bi"
+],
+  "HR": ["hr", "human resources", "talent", "recruiter", "people operations", "staffing","hr", "human", "resources", "people", "talent", "acquisition", "recruitment", "recruiter", "recruiting", "staffing", "hiring", "onboarding", "offboarding", "interview", "screening", "sourcing", "headhunting", "candidate", "negotiation", "joining", "mobility", "referral", "background", "verification", "compliance", "grievance", "discipline", "misconduct", "attendance", "leave", "policy", "handbook", "contract", "agreement", "engagement", "employee", "relation", "culture", "diversity", "inclusion", "equity", "belonging", "ethics", "survey", "performance", "appraisal", "evaluation", "goal", "setting", "training", "learning", "coach", "coaching", "mentoring", "succession", "planning", "career", "growth", "promotion", "transfer", "payroll", "salary", "compensation", "benefits", "structure", "increment", "payout", "hrms", "hris", "workday", "bamboohr", "greytip", "keka", "peoplehr", "namely", "timesheet", "roster", "shift", "business partner", "hrbp", "events", "careerfair", "jobfair", "tracker", "warning", "termination", "notice", "firing", "layoff", "clearance", "documents", "induction", "orientation", "briefing", "handover", "counseling", "mediation", "conflict", "resolution", "records", "recordkeeping", "document", "pf", "gratuity", "statutory", "leaves", "casual", "sick", "maternity", "paternity", "holiday", "esop", "stock", "vesting", "hrtech", "headcount", "manpower", "requisition", "approval", "workflow", "newsletter", "noticeboard", "disciplinary", "hearing", "hrpolicy", "standardization", "confidential", "whistleblower", "investigation", "incident", "behavior", "softskill", "etiquette", "presentation", "conduct", "probation", "confirmation", "absenteeism", "clock", "biometric",],
+    "Finance": ["branch", "accounting", "budget", "tax", "audit", "payroll", "investment", "controller", "financial", "cfo","finance","financial","fin","account","accounts","accounting","bookkeeping","audit","auditing","reconciliation","recon","ledger","voucher","billing","invoice","invoicing","payable","receivable","cash","bank","banking","deposit","withdrawal","treasury","fund","funding","budget","budgeting","expense","expenditure","cost","pricing","forecast","forecasting","planning","fp&a","variance","report","reporting","compliance","statutory","regulatory","tax","taxation","gst","vat","tds","income","corporate","filing","return","gratuity","esi","deduction","wage","payment","payout","collection","recovery","remittance","revenue","profit","loss","pnl","balance","statement","cashflow","flow","liability","capital","equity","valuation","depreciation","amortization","inventory","stock","fixed","current","investment","investor","portfolio","mutual","sip","debt","bond","dividend","ipo","sebi","rbi","insurance","premium","policy","claim","risk","actuary","actuarial","ifrs","gaap","indas","accountant","auditor","cfo","clerk","bookkeeper","treasurer","cashier","cpa","cma","mba","bcom","mcom","sap","quickbooks","tally","netsuite","excel","spreadsheet","erp","kpi","ratio","roe","roa","ebit","ebitda","irr","roi","margin","overhead","break-even","benchmark","costing","charge","fee","commission","royalty","lease","loan","credit","debit","card","banker","lender","borrower","mortgage","emi","interest","rate","exchange","currency","forex","conversion","hedge","hedging","liquidity","solvency","creditor","debtor","dunning","lockbox","close","closing","quarter","year","year-end","cycle","general","subledger","consolidation","projection","scenario","modelling","model","m&a","merger","acquisition","due","diligence","sox","review","check","inspection","reconcile","adjustment",],
+    "Sales": ["sales", "sale", "account executive", "b2b", "b2c", "client partner", "relationship", "channel", "business development","sale", "accountability", "achievement", "activation", "affiliate", "agreement", "appointment", "area", "b2b", "b2c", "bde", "bdm", "bonus", "booth", "branch", "business development", "calendar", "call", "calling", "campaign", "channel", "chat", "client", "closer", "closing", "closings", "closure", "cold", "collection", "commission", "contact", "conversion", "coordination", "coverage", "crm", "crosssell", "csat", "customer", "d2c", "deal", "dealership", "deals", "demo", "dialer", "discount", "distributor", "engagement", "erp", "event", "exhibition", "expansion", "feedback", "field", "follow", "followup", "follow-up", "footprint", "forecast", "forecasting", "funnel", "generation", "goal", "growth", "handoff", "handover", "hubspot", "implementation", "inbound", "incentive", "inflow", "inside", "interaction", "invoice", "issue", "kpi", "lead", "leaderboard", "leadgen", "leads", "lifecycle", "linkedin", "logistics", "loyalty", "mailchimp", "metric", "model", "negotiation", "nonvoice", "nps", "nurturing", "objection", "outbound", "outcome", "outflow", "outreach", "outside", "payment", "penetration", "performance", "pilot", "pipedrive", "pipeline", "pitch", "poc", "presentation", "pricing", "proposal", "prospect", "prospecting", "purchase", "quota", "quotation", "ranking", "rapport", "ratio", "reach", "recovery", "region", "relationship", "renewal", "rep", "representative", "reseller", "retail", "retention", "revenue", "roadshow", "roas", "saas", "sales", "saturation", "schedule", "seller", "selling", "seminar", "service", "smb", "sms", "solutioning", "store", "strategic", "strategy", "subscription", "target", "tech", "telecaller", "telecalling", "territory", "tier", "touchpoint", "tracking", "trade", "trial", "upsell", "volume", "warm", "webinar", "whatsapp", "wholesale", "win", "zoho", "zonal",],
+    "Marketing": ["marketing", "seo", "sem", "digital", "brand", "social media", "market", "performance", "growth", "content", "demand","marketing","digital","performance","growth","brand","product","content","social","media","seo","sem","ppc","paid","influencer","affiliate","email","crm","campaign","planner","creative","copywriter","advertising","programmatic","display","native","retargeting","remarketing","targeting","nurturing","funnel","martech","acquisition","retention","experience","conversion","optimization","segmentation","persona","engagement","market","b2b","b2c","marketo","tiktok","youtube","graphics","video","podcast","audio","experiential","personalization","real-time","execution","leadership","producer","demand","lifecycle","nurture","blog","post","promotion","sponsorship","virtual","banner","rollout","macroinfluencer","microinfluencer","publication","pricing","positioning","timeline","distribution","tactics","metrics","pipeline","touchpoint","branding","style","voice","tone","visibility","placement","buying","scaling","saturation",],
+    "Operations": ["operations", "logistics", "supply chain", "fleet", "admin", "coordinator"]
   };
 
   function detectRole(title) {
@@ -271,6 +423,12 @@
     body.classList.toggle("light-mode");
     toggleBtn.innerText = body.classList.contains("light-mode") ? "🌙 Dark" : "☀️ Light";
   }
+
+function toggleMenu(el) {
+      el.classList.toggle('active');
+      document.getElementById('nav-menu').classList.toggle('show');
+    }
+
 </script>
 
 </body>
