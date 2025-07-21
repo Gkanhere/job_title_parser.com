@@ -300,6 +300,8 @@ html {
   </div>
 <script>
   const rolesMap = {
+        "Director": ["director"],
+
   //  "Vice President": ["vice president", "vp","svp","avp","vice president","vice-president",  "senior vice president","v.p","evp","associate vice president", "assistant vice president", "senior vice president", "executive vice president", "regional vice president", "division vice president", "deputy vice president"],
   "Vice President" : [ 
   "vice president",
@@ -317,7 +319,6 @@ html {
   "division vice president",
   "deputy vice president"
 ],    
-    "Director": ["director"],
     "Head": ["head"],
     "Manager": ["manager"],
     "Partner": ["partner"],
@@ -456,15 +457,6 @@ function detectRole(title) {
 
   return "Staff";
 }
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  // some async task
-  doSomethingAsync().then(result => {
-    sendResponse(result);
-  });
-  // Important: return true to keep the message channel open for async response
-  return true;
-});
 
 
 
