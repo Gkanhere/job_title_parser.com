@@ -457,6 +457,14 @@ function detectRole(title) {
   return "Staff";
 }
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  // some async task
+  doSomethingAsync().then(result => {
+    sendResponse(result);
+  });
+  // Important: return true to keep the message channel open for async response
+  return true;
+});
 
 
 
