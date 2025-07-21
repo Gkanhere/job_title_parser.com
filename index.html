@@ -317,8 +317,7 @@ html {
   "regional vice president",
   "division vice president",
   "deputy vice president"
-],
-
+],    
     "Director": ["director"],
     "Head": ["head"],
     "Manager": ["manager"],
@@ -342,18 +341,7 @@ html {
     "Operations": ["operations", "logistics", "supply chain", "fleet", "admin", "coordinator"]
   };
 
-  function detectRole(title) {
-    const words = title.toLowerCase().split(/[^a-z0-9+]/);
-    for (let word of words) {
-      if (ignoredRoles.includes(word)) continue;
-      for (let role in rolesMap) {
-        if (rolesMap[role].includes(word)) {
-          return role;
-        }
-      }
-    }
-    return "Staff";
-  }
+
 
   function detectDepartment(title) {
     const words = title.toLowerCase().split(/[^a-z0-9+]/);
