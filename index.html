@@ -448,6 +448,32 @@ function toggleMenu(el) {
       document.getElementById('nav-menu').classList.toggle('show');
     }
 
+
+
+
+
+
+
+function detectRole(title) {
+  const normalizedTitle = title.toLowerCase().replace(/[\.\-]/g, ' ').replace(/\s+/g, ' ').trim();
+
+  for (let role in rolesMap) {
+    for (let keyword of rolesMap[role]) {
+      if (normalizedTitle.includes(keyword)) {
+        if (ignoredRoles.some(ignored => keyword.includes(ignored))) continue;
+        return role;
+      }
+    }
+  }
+
+  return "Staff";
+}
+
+
+
+
+
+  
 </script>
 
 </body>
