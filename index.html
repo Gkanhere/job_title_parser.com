@@ -441,14 +441,17 @@ function toggleMenu(el) {
 
 
 
-
 function detectRole(title) {
   const normalizedTitle = title.toLowerCase().replace(/[\.\-]/g, ' ').replace(/\s+/g, ' ').trim();
+  const words = normalizedTitle.split(" ");
 
   for (let role in rolesMap) {
     for (let keyword of rolesMap[role]) {
-      if (normalizedTitle.includes(keyword)) {
-        if (ignoredRoles.some(ignored => keyword.includes(ignored))) continue;
+      if (ignoredRoles.some(ignored => keyword.includes(ignored))) continue;
+
+      // Match whole word using a regular expression
+      const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+      if (regex.test(normalizedTitle)) {
         return role;
       }
     }
