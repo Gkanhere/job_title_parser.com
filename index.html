@@ -406,23 +406,26 @@ html {
   }
 
   function copyResults() {
-    const tbody = document.querySelector("#resultsTable tbody");
-    if (!tbody.innerText.trim()) {
-      alert("Nothing to copy. Please parse job titles first.");
-      return;
-    }
-    const range = document.createRange();
-    range.selectNode(tbody);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-    try {
-      document.execCommand('copy');
-      alert("Results copied to clipboard.");
-    } catch {
-      alert("Failed to copy results.");
-    }
-    window.getSelection().removeAllRanges();
+  const tbody = document.querySelector("#resultsTable tbody");
+  if (!tbody.innerText.trim()) {
+    alert("Nothing to copy. Please parse job titles first.");
+    return;
   }
+
+  let textToCopy = "S.No\tJob Title\tRole\tDepartment\n";
+
+  [...tbody.querySelectorAll("tr")].forEach(row => {
+    const cells = row.querySelectorAll("td");
+    const rowText = [...cells].map(td => td.innerText).join("\t");
+    textToCopy += rowText + "\n";
+  });
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    alert("Results copied to clipboard. You can paste directly into Excel.");
+  }).catch(() => {
+    alert("Failed to copy results.");
+  });
+}
 
   function downloadCSV() {
     const tbody = document.querySelector("#resultsTable tbody");
