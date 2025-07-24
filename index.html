@@ -338,19 +338,19 @@ html {
     "Operations": ["operations", "logistics", "supply chain", "fleet", "admin", "coordinator"]
   };
 
-  function detectDepartment(title) {
-    const normalized = title.toLowerCase().replace(/[\.\-\/]/g, " ");
-    const words = normalized.split(/[^a-z0-9+]+/).filter(Boolean);
-    
-    for (const [dept, keywords] of Object.entries(departments)) {
-      for (const word of words) {
-        if (keywords.some(k => k.toLowerCase() === word)) {
-          return dept;
-        }
+function detectDepartment(title) {
+  const normalized = title.toLowerCase().replace(/[\.\-\/]/g, " ");
+  
+  for (const [dept, keywords] of Object.entries(departments)) {
+    for (const keyword of keywords) {
+      if (normalized.includes(keyword.toLowerCase())) {
+        return dept;
       }
     }
-    return "Operation";
   }
+  return "Operation";
+}
+
 
   function getMatchingRoles(title) {
     const normalizedTitle = title.toLowerCase().replace(/[\.\-\/]/g, ' ').replace(/\s+/g, ' ').trim();
