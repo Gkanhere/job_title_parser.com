@@ -394,11 +394,10 @@ html {
       const dept = detectDepartment(title);
 
       const rowStyle = roles.length > 1 ? 'style="color: red;"' : ' ';
-       const emoji = roles ? '⚠️';
       
       const row = `<tr ${rowStyle}>
         <td>${i + 1}</td>
-        <td>${title}${emoji}</td>
+        <td>${title}</td>
         <td>${roleDisplay}  </td>
         <td>${dept}</td>
       </tr>`;
