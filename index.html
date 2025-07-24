@@ -469,18 +469,17 @@ function detectRole(title) {
 </html>
 -->
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Under Maintenance</title>
+  <title>🚧 Under Maintenance 🚧</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #121212;
+      background: #1a1a1a;
       color: #fff;
       height: 100vh;
       display: flex;
@@ -488,12 +487,19 @@ function detectRole(title) {
       justify-content: center;
       flex-direction: column;
       text-align: center;
+      overflow: hidden;
     }
 
     .maintenance-img {
       max-width: 200px;
       margin-bottom: 25px;
-      animation: fadeIn 1s ease-in;
+      border-radius: 12px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .emoji-title {
+      font-size: 2.4rem;
+      margin: 10px 0;
     }
 
     .search-box {
@@ -509,7 +515,7 @@ function detectRole(title) {
       font-size: 16px;
       border-radius: 30px;
       border: none;
-      background: #1e1e1e;
+      background: #2c2c2c;
       color: #fff;
       box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
       animation: inputPulse 2.5s infinite;
@@ -531,8 +537,8 @@ function detectRole(title) {
 
     .no-results {
       margin-top: 20px;
-      font-size: 20px;
-      color: #f44336;
+      font-size: 22px;
+      color: #ff6b6b;
       animation: fadeInUp 2s ease-in-out infinite;
     }
 
@@ -540,6 +546,7 @@ function detectRole(title) {
       margin-top: 30px;
       font-size: 18px;
       color: #ccc;
+      line-height: 1.6;
     }
 
     @keyframes typing {
@@ -553,43 +560,58 @@ function detectRole(title) {
       50% { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
     @keyframes fadeInUp {
       0%, 100% { opacity: 0; transform: translateY(10px); }
       50% { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
     @media (max-width: 600px) {
       .maintenance-img {
-        max-width: 150px;
+        max-width: 140px;
+      }
+
+      .emoji-title {
+        font-size: 1.8rem;
+      }
+
+      .no-results {
+        font-size: 18px;
+      }
+
+      .message {
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ✅ Maintenance Image -->
+  <!-- Maintenance Image -->
   <img
     class="maintenance-img"
-    src="https://www.google.com/imgres?q=png%20website%20under%20maintenance%20logo&imgurl=https%3A%2F%2Fcdni.iconscout.com%2Fillustration%2Fpremium%2Fthumb%2Fwebsite-under-maintenance-illustration-download-in-svg-png-gif-file-formats--webpage-web-design-graphic-interface-business-pack-people-illustrations-3610782.png&imgrefurl=https%3A%2F%2Ficonscout.com%2Fillustration%2Fwebsite-under-maintenance-4315048_3610782&docid=3Gxxwhk0M5qGAM&tbnid=jwwMJHuN_jcHkM&vet=12ahUKEwi59pHT0NSOAxXmyzgGHWYGHTIQM3oECAoQAA..i&w=580&h=450&hcb=2&ved=2ahUKEwi59pHT0NSOAxXmyzgGHWYGHTIQM3oECAoQAA"
-    alt="Under Maintenance"
+    src="https://cdn3d.iconscout.com/3d/premium/thumb/website-under-maintenance-4315048-3610782.png"
+    alt="Maintenance Icon"
   >
 
-  <!-- ✅ Simulated Search Animation -->
+  <div class="emoji-title">🚧 We're Working on It! 🛠️</div>
+
   <div class="search-box">
     <input class="search-input" disabled />
-    <div class="search-placeholder">Searching website...</div>
+    <div class="search-placeholder">🔍 Searching for updates...</div>
   </div>
 
-  <!-- ✅ No result message -->
-  <div class="no-results">No results found.</div>
+  <div class="no-results">😕 No results found.</div>
 
-  <!-- ✅ Maintenance message -->
-  <div class="message">Our site is under maintenance.<br>Please check back soon!</div>
+  <div class="message">
+    ⚙️ Our website is currently under maintenance.<br>
+    📅 Please check back soon.<br>
+    🚀 We’re improving things just for you!
+  </div>
 
 </body>
 </html>
