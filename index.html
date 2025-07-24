@@ -390,7 +390,7 @@ html {
 
     titles.forEach((title, i) => {
       const roles = getMatchingRoles(title);
-      const roleDisplay = roles.length ? roles : "Staff";
+const roleDisplay = roles.length ? roles[0] : "Staff";
       const dept = detectDepartment(title);
 
       const rowStyle = roles.length > 1 ? 'style="color: red;"' : ' ';
