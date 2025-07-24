@@ -393,12 +393,14 @@ html {
 const roleDisplay = roles.length ? roles[0] : "Staff";
       const dept = detectDepartment(title);
 
-      const rowStyle = roles.length > 1 ? 'style="color: red;"' : ' ';
+
+  const isAmbiguous = roles.length > 1;
+  const alertEmoji = isAmbiguous ? " ⚠️" : "";
+  const rowStyle = isAmbiguous ? 'style="color: red;"' : "";
       
       const row = `<tr ${rowStyle}>
         <td>${i + 1}</td>
-        <td>${title}</td>
-        <td>${roleDisplay}  </td>
+        <td>${title}${alertEmoji}</td>         <td>${roleDisplay}  </td>
         <td>${dept}</td>
       </tr>`;
       tbody.innerHTML += row;
