@@ -474,34 +474,81 @@ function detectRole(title) {
   <meta charset="UTF-8">
   <title>Website Under Maintenance</title>
   <style>
-    body {
+   body {
       margin: 0;
-      background: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a1a;
       color: #fff;
-      font-family: Arial, sans-serif;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      flex-direction: column;
       text-align: center;
+      overflow: hidden;
     }
-    img {
-      width: 150px;
+
+    .maintenance-img {
+      max-width: 200px;
+      margin-bottom: 25px;
+      border-radius: 12px;
       animation: float 3s ease-in-out infinite;
     }
-    h1 {
-      font-size: 2.5em;
-      margin-top: 20px;
+
+    .emoji-title {
+      font-size: 2.4rem;
+      margin: 10px 0;
     }
-    p {
-      font-size: 1.2em;
-      margin-top: 10px;
-      color: #ccc;
+
+    .search-box { position: relative; width: 300px; max-width: 80%; }
+
+    .search-input {
+      width: 100%; padding: 15px 20px; font-size: 16px;
+      border-radius: 30px; border: none;
+      background: #2c2c2c; color: #fff;
+      box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+      animation: inputPulse 2.5s infinite;
+    }
+
+    .search-placeholder {
+      position: absolute; top: 50%; left: 20px;
+      transform: translateY(-50%);
+      color: #aaa; pointer-events: none; font-size: 16px;
+      animation: typing 4s steps(30) infinite;
+      white-space: nowrap; overflow: hidden; width: 0;
+    }
+
+    .no-results {
+      margin-top: 20px; font-size: 22px; color: #ff6b6b;
+      animation: fadeInUp 2s ease-in-out infinite;
+    }
+
+    .message {
+      margin-top: 30px; font-size: 18px; color: #ccc;
+      line-height: 1.6;
+    }
+
+    @keyframes typing {
+      0% { width: 0; } 50% { width: 80%; } 100% { width: 0; }
+    }
+    @keyframes inputPulse {
+      0%,100% { box-shadow: 0 0 5px rgba(255,255,255,0.2); }
+      50%   { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
+    }
+    @keyframes fadeInUp {
+      0%,100% { opacity: 0; transform: translateY(10px); }
+      50%     { opacity: 1; transform: translateY(0); }
     }
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 600px) {
+      .maintenance-img { max-width: 140px; }
+      .emoji-title { font-size: 1.8rem; }
+      .no-results { font-size: 18px; }
+      .message { font-size: 16px; }
     }
   </style>
 </head>
@@ -514,5 +561,23 @@ function detectRole(title) {
   >  <h1>🚧 Under Maintenance</h1>
   <p>We’re doing some work on the site.<br>Please check back later!</p>
 
+
+
+  <div class="emoji-title">🚧 We're Working on It! 🛠️</div>
+
+  <div class="search-box">
+    <input class="search-input" disabled />
+    <div class="search-placeholder">🔍 Searching for updates...</div>
+  </div>
+
+  <div class="no-results">😕 No results found.</div>
+
+  <div class="message">
+    ⚙️ Our website is currently under maintenance.<br>
+    📅 Please check back soon.<br>
+    🚀 We’re improving things just for you!
+  </div>
+
+  
 </body>
 </html>
