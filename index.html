@@ -393,7 +393,7 @@ html {
       const roleDisplay = roles.length ? roles.join(", ") : "Staff";
       const dept = detectDepartment(title);
 
-      const rowStyle = roles.length > 1 ? 'style="color: red;"' : '';
+      const rowStyle = roles.length > 1 ? 'style="color: red;"' : '⚠️';
 
       const row = `<tr ${rowStyle}>
         <td>${i + 1}</td>
