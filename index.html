@@ -296,63 +296,118 @@ html {
       Contact Us | &#9993;  gkanhere11@gmail.com | <a href="https://github.com/Gkanhere/" target="_blank" style="color:#00ffc3">GitHub</a>
     </footer>
   </div>
+
+
 <script>
   const rolesMap = {
-        "Director": ["director"],
-  "C-Level": ["ceo", "cio", "cto", "cfo", "coo", "cko", "chro", "cdo", "cco", "cxo", "cino", "cso", "cmo", "cro", "chief"],
-  //  "Vice President": ["vice president", "vp","svp","avp","vice president","vice-president",  "senior vice president","v.p","evp","associate vice president", "assistant vice president", "senior vice president", "executive vice president", "regional vice president", "division vice president", "deputy vice president"],
-  "Vice President" : [ 
-  "vice president",
-  "vp",
-  "svp",
-  "avp",
-  "vice-president",
-  "senior vice president",
-  "v.p",
-  "evp",
-  "associate vice president",
-  "assistant vice president",
-  "executive vice president",
-  "regional vice president",
-  "division vice president",
-  "deputy vice president"
-],    
-          
-
+    "Director": ["director"],
+    "C-Level": ["ceo", "cio", "cto", "cfo", "coo", "cko", "chro", "cdo", "cco", "cxo", "cino", "cso", "cmo", "cro", "chief"],
+    "Vice President": [ 
+      "vice president",
+      "vp",
+      "svp",
+      "avp",
+      "vice-president",
+      "senior vice president",
+      "v.p",
+      "evp",
+      "associate vice president",
+      "assistant vice president",
+      "executive vice president",
+      "regional vice president",
+      "division vice president",
+      "deputy vice president"
+    ],
     "Head": ["head"],
     "Manager": ["manager"],
     "Partner": ["partner"],
     "Owner": ["owner"]
-    // "President": ["president"],
-
-
   };
 
   const ignoredRoles = ["assistant", "executive", "supervisor"];
 
   const departments = {
-  "IT": [
-"quality assurance","associate technical architect","enterprise architecture","information technology architecture","business architect","business intelligence architect","data architect","enterprise architect","information architect","information technology architect","software architect","solutions architect", "applications","cybersecurity","intelligence","it","information","cio", "chief information officer", "developer", "software", "java",   "cloud", "sql", "devops", "network", "cyber", "security", "frontend",   "backend", "ai", "ml", "data", "python", "infrastructure", "database",   "qa", "tester", "full stack", "big data", "etl", "blockchain",  "server", "web", "kubernetes", "docker", "developer", "software", "frontend", "backend", "fullstack", "programmer", "coder", "java", "javascript", "typescript", "python", "golang", "ruby", "php", "csharp", "dotnet", "cplus", "react", "angular", "vue", "node", "express", "django", "flask", "spring", "laravel", "swift", "kotlin", "android", "ios", "flutter", "reactnative", "mobile", "api", "rest", "graphql", "microservices", "json", "xml", "html", "css", "tailwind", "bootstrap", "sass", "scss", "sdk", "ui", "ux","uiux", "mvc", "redux", "nextjs", "nuxt", "webpack", "babel", "vite", "npm", "yarn", "jest", "mocha", "chai", "testing", "selenium", "cypress", "playwright", "qa", "bug", "debugger", "code", "jira", "agile", "scrum", "git", "github", "bitbucket", "gitlab", "pipeline", "build", "release", "devops", "docker", "kubernetes", "terraform", "ansible", "helm", "cloud", "aws", "azure", "gcp", "lambda", "cloudfront", "cloudwatch", "cloudtrail", "cloudformation", "architect", "admin", "linux", "windows", "unix", "shell", "bash", "powershell", "sso", "vpn", "firewall", "security", "token", "ssl", "tls", "encryption", "decryption", "vault", "bastion", "prometheus", "grafana", "elk", "kibana", "datadog", "newrelic", "pagerduty", "istio", "envoy", "tracing", "jaeger", "sre",  "system", "sysadmin", "infra", "infrastructure", "intune", "sccm", "vmware", "hyperv", "citrix", "endpoint", "workstation", "remediation", "troubleshooting", "desktop", "helpdesk", "technician", "network", "router", "wan", "dhcp", "dns", "subnet", "printer", "peripheral", "installation", "configuration", "setup", "application", "hardware", "bios", "registry", "outlook", "nac", "rmm", "bcp", "dr", "redundancy", "cluster", "itil", "performance", "latency", "packet", "snmp", "syslog", "snapshot", "hypervisor", "boot", "partition", "filesystem", "volume", "disk", "drive", "ssd", "nas", "san", "storage", "tape", "failover", "cache", "buffer", "data", "database", "sql", "mysql", "postgres", "oracle", "mssql", "nosql", "mongodb", "redis", "cassandra", "dynamodb", "bigquery", "snowflake", "databricks", "datawarehouse", "etl", "elt", "dbt", "glue", "lake", "parquet", "delta", "hadoop", "hive", "spark", "pyspark", "kafka", "flink", "stream", "view", "trigger", "cursor", "normalization", "denormalization", "shard", "replica", "sync", "replication", "migration", "script", "scripting", "cron", "scheduler", "webhook", "socket", "rpc", "web", "middleware", "autoscale", "provisioning", "deployment", "nexus", "artifactory", "circleci", "travis", "jenkins", "gitops", "argocd", "flux", "certificate", "gdpr", "hipaa", ".net","soc2", "iso", "proxy", "networking", "wireless", "ethernet", "pat", "routing", "switching", "nginx", "apache", "tomcat", "jetty", "traefik", "haproxy", "ingress", "controller", "certbot", "letsencrypt", "dnsmasq", "bind", "reverse", "akamai", "cloudflare", "fastly", "edge", "baremetal", "cloudnative", "serverless", "azurefunction", "eventhub", "pubsub", "queue", "kinesis", "rabbitmq", "activemq", "mqtt", "zookeeper",  "consensus", "front end", "back end", "full stack" , "software","artificial intelligence","ai","power bi","powerbi","bi"
-],
-  "HR": ["hr", "human resources", "talent", "recruiter", "people operations", "staffing","hr", "human", "resources", "people", "talent", "acquisition", "recruitment", "recruiter", "recruiting", "staffing", "hiring", "onboarding", "offboarding", "interview", "screening", "sourcing", "headhunting", "candidate", "negotiation", "joining", "mobility", "referral", "background", "verification", "grievance", "discipline", "misconduct", "attendance", "leave", "policy", "handbook", "contract", "agreement", "engagement", "employee", "relation", "culture", "diversity", "inclusion", "equity", "belonging", "ethics", "survey", "performance", "appraisal", "evaluation", "goal", "setting", "training", "learning", "coach", "coaching", "mentoring", "succession", "planning", "career", "growth", "promotion", "transfer", "payroll", "salary", "compensation", "benefits", "structure", "increment", "payout", "hrms", "hris", "workday", "bamboohr", "greytip", "keka", "peoplehr", "namely", "timesheet", "roster", "shift", "business partner", "hrbp", "events", "careerfair", "jobfair", "tracker", "warning", "termination", "notice", "firing", "layoff", "clearance", "documents", "induction", "orientation", "briefing", "handover", "counseling", "mediation", "conflict", "resolution", "records", "recordkeeping", "document", "pf", "gratuity", "statutory", "leaves", "casual", "sick", "maternity", "paternity", "holiday", "esop", "stock", "vesting", "hrtech", "headcount", "manpower", "requisition", "approval", "workflow", "newsletter", "noticeboard", "disciplinary", "hearing", "hrpolicy", "standardization", "confidential", "whistleblower", "investigation", "incident", "behavior", "softskill", "etiquette", "presentation", "conduct", "probation", "confirmation", "absenteeism", "clock", "biometric",],
-    "Finance": ["audits","fraud","compliance","branch", "budget", "tax", "audit", "payroll", "investment", "controller", "financial", "cfo","finance","financial","fin","account","accounts","accounting","bookkeeping","audit","auditing","reconciliation","recon","ledger","voucher","billing","invoice","invoicing","payable","receivable","cash","bank","banking","deposit","withdrawal","treasury","fund","funding","budget","budgeting","expense","expenditure","cost","pricing","forecast","forecasting","planning","fp&a","variance","report","reporting","compliance","statutory","regulatory","tax","taxation","gst","vat","tds","income","corporate","filing","return","gratuity","esi","deduction","wage","payment","payout","collection","recovery","remittance","revenue","profit","loss","pnl","balance","statement","cashflow","flow","liability","capital","equity","valuation","depreciation","amortization","inventory","stock","fixed","current","investment","investor","portfolio","mutual","sip","debt","bond","dividend","ipo","sebi","rbi","insurance","premium","policy","claim","risk","actuary","actuarial","ifrs","gaap","indas","accountant","auditor","cfo","clerk","bookkeeper","treasurer","cashier","cpa","cma","mba","bcom","mcom","sap","quickbooks","tally","netsuite","excel","spreadsheet","erp","kpi","ratio","roe","roa","ebit","ebitda","irr","roi","margin","overhead","break-even","benchmark","costing","charge","fee","commission","royalty","lease","loan","credit","debit","card","banker","lender","borrower","mortgage","emi","interest","rate","exchange","currency","forex","conversion","hedge","hedging","liquidity","solvency","creditor","debtor","dunning","lockbox","close","closing","quarter","year","year-end","cycle","general","subledger","consolidation","projection","scenario","modelling","model","m&a","merger","acquisition","due","diligence","sox","review","check","inspection","reconcile","adjustment",],
-    "Sales": ["sales", "sale", "account executive", "b2b", "b2c", "client partner", "relationship", "channel", "business development","sale", "accountability", "achievement", "activation", "affiliate", "agreement", "appointment", "area", "b2b", "b2c", "bde", "bdm", "bonus", "booth", "branch", "business development", "calendar", "call", "calling", "campaign", "channel", "chat", "client", "closer", "closing", "closings", "closure", "cold", "collection", "commission", "contact", "conversion", "coordination", "coverage", "crm", "crosssell", "csat", "customer", "d2c", "deal", "dealership", "deals", "demo", "dialer", "discount", "distributor", "engagement", "erp", "event", "exhibition", "expansion", "feedback", "field", "follow", "followup", "follow-up", "footprint", "forecast", "forecasting", "funnel", "generation", "goal", "growth", "handoff", "handover", "hubspot", "implementation", "inbound", "incentive", "inflow", "inside", "interaction", "invoice", "issue", "kpi", "lead", "leaderboard", "leadgen", "leads", "lifecycle", "linkedin", "logistics", "loyalty", "mailchimp", "metric", "model", "negotiation", "nonvoice", "nps", "nurturing", "objection", "outbound", "outcome", "outflow", "outreach", "outside", "payment", "penetration", "performance", "pilot", "pipedrive", "pipeline", "pitch", "poc", "presentation", "pricing", "proposal", "prospect", "prospecting", "purchase", "quota", "quotation", "ranking", "rapport", "ratio", "reach", "recovery", "region", "relationship", "renewal", "rep", "representative", "reseller", "retail", "retention", "revenue", "roadshow", "roas", "saas", "sales", "saturation", "schedule", "seller", "selling", "seminar", "smb", "sms", "solutioning", "store", "strategic", "strategy", "subscription", "target", "tech", "telecaller", "telecalling", "territory", "tier", "touchpoint", "tracking", "trade", "upsell", "volume", "warm", "webinar", "whatsapp", "wholesale",],
-    "Marketing": ["marketing", "seo", "sem", "digital", "brand", "social media", "market", "performance", "growth", "content", "demand","marketing","digital","performance","growth","brand","product","content","social","media","seo","sem","ppc","paid","influencer","affiliate","email","crm","campaign","planner","creative","copywriter","advertising","programmatic","display","native","retargeting","remarketing","targeting","nurturing","funnel","martech","acquisition","retention","experience","conversion","optimization","segmentation","persona","engagement","market","b2b","b2c","marketo","tiktok","youtube","graphics","video","podcast","audio","experiential","personalization","real-time","execution","leadership","producer","demand","lifecycle","nurture","blog","post","promotion","sponsorship","virtual","banner","rollout","macroinfluencer","microinfluencer","publication","pricing","positioning","timeline","distribution","tactics","metrics","pipeline","touchpoint","branding","style","voice","tone","visibility","placement","buying","scaling","saturation",],
-    "Operations": ["operations", "logistics", "supply chain", "fleet", "admin", "coordinator"]
+    "IT": [
+      "quality assurance","associate technical architect","enterprise architecture","information technology architecture","business architect","business intelligence architect",
+      "data architect","enterprise architect","information architect","information technology architect","software architect","solutions architect", "applications",
+      "cybersecurity","intelligence","it","information","cio", "chief information officer", "developer", "software", "java", "cloud", "sql", "devops", "network", "cyber",
+      "security", "frontend", "backend", "ai", "ml", "data", "python", "infrastructure", "database", "qa", "tester", "full stack", "big data", "etl", "blockchain",
+      "server", "web", "kubernetes", "docker", "developer", "software", "frontend", "backend", "fullstack", "programmer", "coder", "java", "javascript", "typescript",
+      "python", "golang", "ruby", "php", "csharp", "dotnet", "cplus", "react", "angular", "vue", "node", "express", "django", "flask", "spring", "laravel", "swift",
+      "kotlin", "android", "ios", "flutter", "reactnative", "mobile", "api", "rest", "graphql", "microservices", "json", "xml", "html", "css", "tailwind", "bootstrap",
+      "sass", "scss", "sdk", "ui", "ux", "uiux", "mvc", "redux", "nextjs", "nuxt", "webpack", "babel", "vite", "npm", "yarn", "jest", "mocha", "chai", "testing",
+      "selenium", "cypress", "playwright", "qa", "bug", "debugger", "code", "jira", "agile", "scrum", "git", "github", "bitbucket", "gitlab", "pipeline", "build",
+      "release", "devops", "docker", "kubernetes", "terraform", "ansible", "helm", "cloud", "aws", "azure", "gcp", "lambda", "cloudfront", "cloudwatch", "cloudtrail",
+      "cloudformation", "architect", "admin", "linux", "windows", "unix", "shell", "bash", "powershell", "sso", "vpn", "firewall", "security", "token", "ssl", "tls",
+      "encryption", "decryption", "vault", "bastion", "prometheus", "grafana", "elk", "kibana", "datadog", "newrelic", "pagerduty", "istio", "envoy", "tracing",
+      "jaeger", "sre", "system", "sysadmin", "infra", "infrastructure", "intune", "sccm", "vmware", "hyperv", "citrix", "endpoint", "workstation", "remediation",
+      "troubleshooting", "desktop", "helpdesk", "technician", "network", "router", "wan", "dhcp", "dns", "subnet", "printer", "peripheral", "installation",
+      "configuration", "setup", "application", "hardware", "bios", "registry", "outlook", "nac", "rmm", "bcp", "dr", "redundancy", "cluster", "itil", "performance",
+      "latency", "packet", "snmp", "syslog", "snapshot", "hypervisor", "boot", "partition", "filesystem", "volume", "disk", "drive", "ssd", "nas", "san", "storage",
+      "tape", "failover", "cache", "buffer", "data", "database", "sql", "mysql", "postgres", "oracle", "mssql", "nosql", "mongodb", "redis", "cassandra", "dynamodb",
+      "bigquery", "snowflake", "databricks", "datawarehouse", "etl", "elt", "dbt", "glue", "lake", "parquet", "delta", "hadoop", "hive", "spark", "pyspark", "kafka",
+      "flink", "stream", "view", "trigger", "cursor", "normalization", "denormalization", "shard", "replica", "sync", "replication", "migration", "script", "scripting",
+      "cron", "scheduler", "webhook", "socket", "rpc", "web", "middleware", "autoscale", "provisioning", "deployment", "nexus", "artifactory", "circleci", "travis",
+      "jenkins", "gitops", "argocd", "flux", "certificate", "gdpr", "hipaa", ".net","soc2", "iso", "proxy", "networking", "wireless", "ethernet", "pat", "routing",
+      "switching", "nginx", "apache", "tomcat", "jetty", "traefik", "haproxy", "ingress", "controller", "certbot", "letsencrypt", "dnsmasq", "bind", "reverse", "akamai",
+      "cloudflare", "fastly", "edge", "baremetal", "cloudnative", "serverless", "azurefunction", "eventhub", "pubsub", "queue", "kinesis", "rabbitmq", "activemq", "mqtt",
+      "zookeeper", "consensus", "front end", "back end", "full stack" , "software","artificial intelligence","ai","power bi","powerbi","bi"
+    ],
+    "HR": [
+      "hr", "human resources", "talent", "recruiter", "people operations", "staffing", "acquisition", "recruitment", "recruiting", "hiring", "onboarding", "offboarding",
+      "interview", "screening", "sourcing", "headhunting", "candidate", "negotiation", "joining", "mobility", "referral", "background", "verification", "grievance",
+      "discipline", "misconduct", "attendance", "leave", "policy", "handbook", "contract", "agreement", "engagement", "employee", "relation", "culture", "diversity",
+      "inclusion", "equity", "belonging", "ethics", "survey", "performance", "appraisal", "evaluation", "goal", "setting", "training", "learning", "coach", "coaching",
+      "mentoring", "succession", "planning", "career", "growth", "promotion", "transfer", "payroll", "salary", "compensation", "benefits", "structure", "increment",
+      "payout", "hrms", "hris", "workday", "bamboohr", "greytip", "keka", "peoplehr", "namely", "timesheet", "roster", "shift", "business partner", "hrbp", "events",
+      "careerfair", "jobfair", "tracker", "warning", "termination", "notice", "firing", "layoff", "clearance", "documents", "induction", "orientation", "briefing",
+      "handover", "counseling", "mediation", "conflict", "resolution", "records", "recordkeeping", "document", "pf", "gratuity", "statutory", "leaves", "casual",
+      "sick", "maternity", "paternity", "holiday", "esop", "stock", "vesting", "hrtech", "headcount", "manpower", "requisition", "approval", "workflow", "newsletter",
+      "noticeboard", "disciplinary", "hearing", "hrpolicy", "standardization", "confidential", "whistleblower", "investigation", "incident", "behavior", "softskill",
+      "etiquette", "presentation", "conduct", "probation", "confirmation", "absenteeism", "clock", "biometric"
+    ],
+    "Finance": [
+      "audits","fraud","compliance","branch", "budget", "tax", "audit", "payroll", "investment", "controller", "financial", "cfo","finance","financial","fin","accounting",
+      "accountant","billing", "budgeting", "banking", "billing", "cost", "credit", "debit", "due diligence", "expense", "fund", "ledger", "loan", "management accounting",
+      "payable", "receivable", "reconciliation", "reporting", "risk", "statement", "taxation", "treasury", "valuation", "vat", "warranty", "write-off"
+    ],
+    "Marketing": [
+      "marketing","brand","content","seo","sem","ppc","social media","email marketing","digital","event","pr","advertising","campaign","creative","graphic design",
+      "market research","analytics","media buying","public relations","communications","copywriter","influencer","product marketing","branding","customer insights",
+      "lead generation","growth hacking","web analytics","conversion rate","affiliate marketing"
+    ]
   };
 
-
-
   function detectDepartment(title) {
-    const words = title.toLowerCase().split(/[^a-z0-9+]/);
-    for (let word of words) {
-      for (let dept in departments) {
-        if (departments[dept].includes(word)) {
+    const normalized = title.toLowerCase().replace(/[\.\-\/]/g, " ");
+    const words = normalized.split(/[^a-z0-9+]+/).filter(Boolean);
+    
+    for (const [dept, keywords] of Object.entries(departments)) {
+      for (const word of words) {
+        if (keywords.some(k => k.toLowerCase() === word)) {
           return dept;
         }
       }
     }
-    return "Operations";
+    return "Other";
+  }
+
+  function getMatchingRoles(title) {
+    const normalizedTitle = title.toLowerCase().replace(/[\.\-\/]/g, ' ').replace(/\s+/g, ' ').trim();
+    const rolesFound = [];
+
+    for (const [role, keywords] of Object.entries(rolesMap)) {
+      for (const keyword of keywords) {
+        // Skip keywords that are in ignoredRoles exactly
+        if (ignoredRoles.includes(keyword)) continue;
+        // Check for whole word match
+        const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+        if (regex.test(normalizedTitle) && !rolesFound.includes(role)) {
+          rolesFound.push(role);
+        }
+      }
+    }
+    return rolesFound;
   }
 
   function parseJobs() {
@@ -373,118 +428,66 @@ html {
       return;
     }
 
-titles.forEach((title, i) => {
-  const roles = getMatchingRoles(title);
-  const roleDisplay = roles.length ? roles.join(", ") : "Staff";
-  const dept = detectDepartment(title);
+    titles.forEach((title, i) => {
+      const roles = getMatchingRoles(title);
+      const roleDisplay = roles.length ? roles.join(", ") : "Staff";
+      const dept = detectDepartment(title);
 
-  // 🔴 Highlight in red if multiple roles found
-  const rowStyle = roles.length > 1 ? 'style="color: red;"' : '';
+      const rowStyle = roles.length > 1 ? 'style="color: red;"' : '';
 
-  const row = `<tr ${rowStyle}>
-    <td>${i + 1}</td>
-    <td>${title}</td>
-    <td>${roleDisplay}</td>
-    <td>${dept}</td>
-  </tr>`;
-  tbody.innerHTML += row;
-});
+      const row = `<tr ${rowStyle}>
+        <td>${i + 1}</td>
+        <td>${title}</td>
+        <td>${roleDisplay}</td>
+        <td>${dept}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
 
   function copyResults() {
-    const table = document.querySelector("#resultsTable");
-    const rows = [...table.querySelectorAll("tbody tr")];
-    if (!rows.length) {
-      alert("Please parse job titles first!");
+    const tbody = document.querySelector("#resultsTable tbody");
+    if (!tbody.innerText.trim()) {
+      alert("Nothing to copy. Please parse job titles first.");
       return;
     }
-
-    let copyText = "Original Title\tRole\tDepartment\n";
-    rows.forEach(row => {
-      const cols = row.querySelectorAll("td");
-      copyText += `${cols[1].innerText}\t${cols[2].innerText}\t${cols[3].innerText}\n`;
-    });
-    navigator.clipboard.writeText(copyText).then(() => alert("Copied!"));
+    const range = document.createRange();
+    range.selectNode(tbody);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    try {
+      document.execCommand('copy');
+      alert("Results copied to clipboard.");
+    } catch {
+      alert("Failed to copy results.");
+    }
+    window.getSelection().removeAllRanges();
   }
 
   function downloadCSV() {
-    const table = document.querySelector("#resultsTable");
-    const rows = [...table.querySelectorAll("tbody tr")];
-    if (!rows.length) {
-      alert("Please parse job titles first!");
+    const tbody = document.querySelector("#resultsTable tbody");
+    if (!tbody.innerText.trim()) {
+      alert("Nothing to download. Please parse job titles first.");
       return;
     }
+    let csvContent = "S.No,Job Title,Role,Department\n";
 
-    let csv = "Original Title,Role,Department\n";
-    rows.forEach(row => {
-      const cols = row.querySelectorAll("td");
-      csv += `"${cols[1].innerText}","${cols[2].innerText}","${cols[3].innerText}"\n`;
+    [...tbody.querySelectorAll("tr")].forEach(row => {
+      const cells = row.querySelectorAll("td");
+      const rowData = [...cells].map(td => `"${td.innerText.replace(/"/g, '""')}"`);
+      csvContent += rowData.join(",") + "\n";
     });
-    const blob = new Blob([csv], { type: "text/csv" });
+
+    const blob = new Blob([csvContent], {type: "text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "job_titles_parsed.csv";
-    a.click();
-    URL.revokeObjectURL(url);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "job_roles.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
-
-  function toggleMode() {
-    const body = document.body;
-    const toggleBtn = document.getElementById("toggleMode");
-    body.classList.toggle("light-mode");
-    toggleBtn.innerText = body.classList.contains("light-mode") ? "🌙 Dark" : "☀️ Light";
-  }
-
-function toggleMenu(el) {
-      el.classList.toggle('active');
-      document.getElementById('nav-menu').classList.toggle('show');
-    }
-
-
-
-
-
-
-function detectRole(title) {
-  const normalizedTitle = title.toLowerCase().replace(/[\.\-]/g, ' ').replace(/\s+/g, ' ').trim();
-  const words = normalizedTitle.split(" ");
-
-  for (let role in rolesMap) {
-    for (let keyword of rolesMap[role]) {
-      if (ignoredRoles.some(ignored => keyword.includes(ignored))) continue;
-
-      // Match whole word using a regular expression
-      const regex = new RegExp(`\\b${keyword}\\b`, 'i');
-      if (regex.test(normalizedTitle)) {
-        return role;
-      }
-    }
-  }
-
-  return "Staff";
-}
-
- function getMatchingRoles(title) {
-  const normalizedTitle = title.toLowerCase().replace(/[\.\-\/]/g, ' ').replace(/\s+/g, ' ').trim();
-  const rolesFound = [];
-
-  for (let role in rolesMap) {
-    for (let keyword of rolesMap[role]) {
-      if (ignoredRoles.some(ignored => keyword.includes(ignored))) continue;
-
-      const regex = new RegExp(`\\b${keyword}\\b`, 'i');
-      if (regex.test(normalizedTitle) && !rolesFound.includes(role)) {
-        rolesFound.push(role);
-      }
-    }
-  }
-
-  return rolesFound;
-}
-
-
-
-
 </script>
 
 </body>
