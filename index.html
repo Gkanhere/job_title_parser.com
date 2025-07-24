@@ -394,7 +394,7 @@ html {
       const dept = detectDepartment(title);
 
       const rowStyle = roles.length > 1 ? 'style="color: red;"' : ' ';
-       const emoji = isMultiRole ? '⚠️';
+       const emoji = roles ? '⚠️';
       
       const row = `<tr ${rowStyle}>
         <td>${i + 1}</td>
