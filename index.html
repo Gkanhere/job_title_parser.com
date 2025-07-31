@@ -242,51 +242,81 @@ html {
   scroll-behavior: smooth;
 }
 
-    .hourglass {
+ .hourglass {
       position: relative;
-      width: 100px;
-      height: 200px;
-      border: 4px solid #ccc;
-      border-radius: 50px;
-      clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0% 50%);
+      width: 120px;
+      height: 240px;
+      border: 4px solid #555;
+      border-radius: 60px;
+      background: linear-gradient(to bottom, #111 50%, #000 50%);
       overflow: hidden;
-      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 30px rgba(0, 200, 255, 0.6);
     }
 
-    .sand-top, .sand-bottom {
+    .water-top, .water-bottom {
       position: absolute;
       width: 100%;
-      background: cyan; /* Bright for black background */
-      transition: height 1s linear;
+      background: linear-gradient(to bottom, #00c3ff, #0077be);
+      animation-fill-mode: forwards;
     }
 
-    .sand-top {
+    .water-top {
       top: 0;
       height: 100%;
-      animation: drainTop 3600s linear forwards;
+      animation: drainWater 3600s linear;
     }
 
-    .sand-bottom {
+    .water-bottom {
       bottom: 0;
-      height: 0;
-      animation: fillBottom 3600s linear forwards;
+      height: 0%;
+      animation: fillWater 3600s linear;
     }
 
-    @keyframes drainTop {
+    @keyframes drainWater {
       0% { height: 100%; }
       100% { height: 0%; }
     }
 
-    @keyframes fillBottom {
+    @keyframes fillWater {
       0% { height: 0%; }
       100% { height: 100%; }
+    }
+
+    .bubbles {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: 0;
+      width: 8px;
+      height: 8px;
+      background: #00eaff;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: rise 4s infinite ease-in;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-240px) scale(0.3);
+        opacity: 0;
+      }
     }
 
     .timer-text {
       margin-top: 20px;
       font-size: 24px;
       font-weight: bold;
-      color: white;
     }
   </style>
 </head>
@@ -341,13 +371,12 @@ html {
     </footer>
   </div>
 
-  <div class="hourglass">
-    <div class="sand-top"></div>
-    <div class="sand-bottom"></div>
+    <div class="hourglass">
+    <div class="water-top"></div>
+    <div class="water-bottom"></div>
+    <div class="bubbles" id="bubbles"></div>
   </div>
-
   <div class="timer-text" id="countdown">01:00:00</div>
-
 <script>
   const rolesMap = {
     "Owner": ["owner","founder","co-founder"],
@@ -511,7 +540,7 @@ const roleDisplay = roles.length ? roles[0] : "Staff";
   }
 
 
-  let totalSeconds = 3600;
+   let totalSeconds = 3600;
     const countdownEl = document.getElementById('countdown');
 
     function updateTimer() {
@@ -523,8 +552,17 @@ const roleDisplay = roles.length ? roles[0] : "Staff";
     }
 
     setInterval(updateTimer, 1000);
-    setTimeout(() => location.reload(), 3600000); // auto-reload after 1 hour
-  
+    setTimeout(() => location.reload(), 3600000);
+
+    const bubblesContainer = document.getElementById('bubbles');
+    setInterval(() => {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      bubble.style.left = Math.random() * 100 + '%';
+      bubble.style.animationDuration = (2 + Math.random() * 3) + 's';
+      bubblesContainer.appendChild(bubble);
+      setTimeout(() => bubble.remove(), 5000);
+    }, 300);
 </script>
 
 </body>
