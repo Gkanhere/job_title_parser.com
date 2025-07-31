@@ -241,85 +241,75 @@
 html {
   scroll-behavior: smooth;
 }
-
- .hourglass {
-      position: relative;
-      width: 120px;
-      height: 240px;
-      border: 4px solid #555;
-      border-radius: 60px;
-    <-  background: linear-gradient(to bottom, #111 50%, #000 50%);
-      overflow: hidden;
-      box-shadow: 0 0 30px rgba(0, 200, 255, 0.6);
-    }
-
-    .water-top, .water-bottom {
-      position: absolute;
-      width: 100%;
-   
-     background-color: black ;
-    
-
-      animation-fill-mode: forwards;
-    }
-
-    .water-top {
-      top: 0;
-      height: 100%;
-      animation: drainWater 3600s linear;
-    }
-
-    .water-bottom {
-      bottom: 0;
-      height: 0%;
-      animation: fillWater 3600s linear;
-    }
-
-    @keyframes drainWater {
-      0% { height: 100%; }
-      100% { height: 0%; }
-    }
-
-    @keyframes fillWater {
-      0% { height: 0%; }
-      100% { height: 100%; }
-    }
-
-    .bubbles {
-      position: absolute;
+ .footer-river {
+      position: fixed;
       bottom: 0;
       width: 100%;
-      height: 100%;
-      pointer-events: none;
+      height: 150px;
+      background: linear-gradient(to top, #043a5c, #055e85 50%, transparent);
       overflow: hidden;
+      z-index: 100;
+    }
+
+    .water {
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(0, 160, 255, 0.3) 0px,
+        rgba(0, 160, 255, 0.3) 10px,
+        rgba(0, 100, 180, 0.4) 10px,
+        rgba(0, 100, 180, 0.4) 20px
+      );
+      animation: flowWater 8s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes flowWater {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .fish {
+      position: absolute;
+      width: 50px;
+      animation: swim 12s linear infinite;
+      z-index: 2;
+    }
+
+    .fish svg {
+      width: 100%;
+      transform: scaleX(-1);
+    }
+
+    @keyframes swim {
+      0% { left: -60px; bottom: 30px; }
+      100% { left: 110%; bottom: 60px; }
     }
 
     .bubble {
       position: absolute;
       bottom: 0;
-      width: 8px;
-      height: 8px;
-      background: #00eaff;
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.6);
       border-radius: 50%;
-      opacity: 0.7;
-      animation: rise 4s infinite ease-in;
+      animation: rise 5s linear infinite;
+      z-index: 0;
     }
 
     @keyframes rise {
       0% {
-        transform: translateY(0) scale(1);
-        opacity: 0.7;
+        bottom: 0;
+        opacity: 0.8;
+        transform: scale(0.6);
       }
       100% {
-        transform: translateY(-240px) scale(0.3);
+        bottom: 100%;
         opacity: 0;
+        transform: scale(1);
       }
-    }
-
-    .timer-text {
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
     }
   </style>
 </head>
@@ -374,12 +364,25 @@ html {
     </footer>
   </div>
 
-    <div class="hourglass">
-    <div class="water-top"></div>
-    <div class="water-bottom"></div>
-    <div class="bubbles" id="bubbles"></div>
-  </div>
-  <div class="timer-text" id="countdown">01:00:00</div>
+   <div class="footer-river">
+    <div class="water"></div>
+
+    <!-- Fish SVGs -->
+    <div class="fish" style="top: 20px; left: -60px; animation-delay: 0s;">
+      <svg viewBox="0 0 64 64">
+        <path fill="orange" d="M2 32c0-4 8-16 22-16s20 6 20 16-6 16-20 16S2 36 2 32z"/>
+        <polygon fill="orange" points="2,32 16,24 16,40"/>
+        <circle cx="20" cy="32" r="3" fill="black"/>
+      </svg>
+    </div>
+
+    <div class="fish" style="top: 70px; left: -100px; animation-delay: 3s;">
+      <svg viewBox="0 0 64 64">
+        <path fill="#00ffaa" d="M2 32c0-4 8-16 22-16s20 6 20 16-6 16-20 16S2 36 2 32z"/>
+        <polygon fill="#00ffaa" points="2,32 16,24 16,40"/>
+        <circle cx="20" cy="32" r="3" fill="black"/>
+      </svg>
+    </div>
 <script>
   const rolesMap = {
     "Owner": ["owner","founder","co-founder"],
@@ -543,30 +546,18 @@ const roleDisplay = roles.length ? roles[0] : "Staff";
   }
 
 
-   let totalSeconds = 3600;
-    const countdownEl = document.getElementById('countdown');
-
-    function updateTimer() {
-      const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-      const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
-      const secs = String(totalSeconds % 60).padStart(2, '0');
-      countdownEl.textContent = `${hrs}:${mins}:${secs}`;
-      if (totalSeconds > 0) totalSeconds--;
-    }
-
     setInterval(updateTimer, 1000);
     setTimeout(() => location.reload(), 3600000);
 
-    const bubblesContainer = document.getElementById('bubbles');
-    setInterval(() => {
-      const bubble = document.createElement('div');
-      bubble.classList.add('bubble');
-      bubble.style.left = Math.random() * 100 + '%';
-      bubble.style.animationDuration = (2 + Math.random() * 3) + 's';
-      bubblesContainer.appendChild(bubble);
-      setTimeout(() => bubble.remove(), 5000);
-    }, 300);
-</script>
+  const river = document.querySelector('.footer-river');
+      for (let i = 0; i < 20; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDelay = `${Math.random() * 5}s`;
+        bubble.style.width = bubble.style.height = `${6 + Math.random() * 10}px`;
+        river.appendChild(bubble);
+      }
 
 </body>
 </html>
