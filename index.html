@@ -242,21 +242,21 @@ html {
   scroll-behavior: smooth;
 }
 
- .hourglass {
+    .hourglass {
       position: relative;
       width: 100px;
       height: 200px;
-      background: transparent;
-      border: 5px solid #444;
+      border: 4px solid #ccc;
       border-radius: 50px;
       clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0% 50%);
       overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.05);
     }
 
     .sand-top, .sand-bottom {
       position: absolute;
       width: 100%;
-      background: goldenrod;
+      background: cyan; /* Bright for black background */
       transition: height 1s linear;
     }
 
@@ -286,6 +286,7 @@ html {
       margin-top: 20px;
       font-size: 24px;
       font-weight: bold;
+      color: white;
     }
   </style>
 </head>
@@ -339,12 +340,13 @@ html {
       Contact Us | &#9993;  gkanhere11@gmail.com | <a href="https://github.com/Gkanhere/" target="_blank" style="color:#00ffc3">GitHub</a>
     </footer>
   </div>
-  
-  <div class="countdown" id="countdown">60:00</div>
+
   <div class="hourglass">
-    <div class="sand"></div>
+    <div class="sand-top"></div>
+    <div class="sand-bottom"></div>
   </div>
 
+  <div class="timer-text" id="countdown">01:00:00</div>
 
 <script>
   const rolesMap = {
@@ -509,26 +511,19 @@ const roleDisplay = roles.length ? roles[0] : "Staff";
   }
 
 
-let secondsLeft = 3600; // 1 hour
+  let totalSeconds = 3600;
+    const countdownEl = document.getElementById('countdown');
 
-    function updateCountdown() {
-      const minutes = Math.floor(secondsLeft / 60);
-      const seconds = secondsLeft % 60;
-      document.getElementById("countdown").textContent =
-        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-      if (secondsLeft > 0) {
-        secondsLeft--;
-        setTimeout(updateCountdown, 1000);
-      }
+    function updateTimer() {
+      const hrs = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(totalSeconds % 60).padStart(2, '0');
+      countdownEl.textContent = `${hrs}:${mins}:${secs}`;
+      if (totalSeconds > 0) totalSeconds--;
     }
 
-    updateCountdown();
-
-    // Reload after 1 hour
-    setTimeout(() => {
-      location.reload();
-    }, 3600000);
+    setInterval(updateTimer, 1000);
+    setTimeout(() => location.reload(), 3600000); // auto-reload after 1 hour
   
 </script>
 
