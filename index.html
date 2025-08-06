@@ -1,3 +1,5 @@
+<!-- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -469,6 +471,77 @@ const roleDisplay = roles.length ? roles[0] : "Staff";
   //  setTimeout(() => location.reload(), 3600000);
 
  </script>
+
+
+
+
+
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Under Maintenance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #2c3e50, #4ca1af);
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .spinner-border {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <!-- Optional Logo -->
+    <img src="https://www.vecteezy.com/free-vector/website-maintenance" alt="Logo" class="logo rounded-circle shadow">
+
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <h1>We’ll Be Back Soon</h1>
+    <p class="lead">We're performing some scheduled maintenance. Thanks for your patience!</p>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 Your Company Name. All rights reserved.
+  </div>
 
 </body>
 </html>
