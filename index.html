@@ -361,7 +361,7 @@ function detectDepartment(title) {
   return "Operations";  // Default to "Operations" if no match is found
 }
 
-
+let ignoredRoles ="ass";
   function getMatchingRoles(title) {
     const normalizedTitle = title.toLowerCase().replace(/[\.\-\/]/g, ' ').replace(/\s+/g, ' ').trim();
     const rolesFound = [];
