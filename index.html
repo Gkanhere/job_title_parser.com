@@ -248,7 +248,74 @@
 html {
   scroll-behavior: smooth;
 }
- 
+
+
+  .projects {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .projects a {
+      color: #00ffc3;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 18px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .projects a:hover {
+      background: #00ffc3;
+      color: #000;
+    }
+
+    .adBox {
+  position: fixed;
+  top: 50%; /* center vertically */
+  transform: translateY(-50%); /* adjust to true center */
+  width: 180px;
+  padding: 35px 17px;
+  background-color: #1d2631;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  max-width: 200px;
+  z-index: 1000;
+  color: #83cff5;
+  margin: 5px;
+text-align: center;
+}
+
+#adBoxLeft {
+  left: -220px; /* start off-screen */
+}
+
+#adBoxRight {
+  right: -220px; /* start off-screen */
+}
+
+
+
+.adBox a {
+  text-decoration: none;
+  color: #dce9f7;
+  font-weight: bold;
+}
+  
+.adBox:hover {
+  transform: translateY(-50%) scale(1.05); /* keep vertical center while scaling */
+  box-shadow: 0 4px 12px rgba(153, 116, 228, 0.6);
+  border-color: #618abf;
+   background: #17d5a8;
+      color: #000;
+}
+
+
   </style>
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -259,6 +326,16 @@ html {
 </head>
 <body>
 
+<div id="leftAd" class="adBox">
+   <strong>Try our new service:</strong>
+<br>  <a href="https://typing-master-iota-orpin.vercel.app/" target="_blank">  Typing Master <br><br>"Master your typing, master your productivity! ⌨️✨</a>
+</div>
+
+<!-- Right Ad Box -->
+<div id="rightAd" class="adBox">
+   <strong>Try our new service:</strong><br>
+  <a href="https://typing-master-iota-orpin.vercel.app/" target="_blank"> Typing Master <br><br>"Master your typing, master your productivity! ⌨️✨</a>
+</div>
 
     <header>
     <div class="logo">Job Titles Parser</div>
@@ -303,12 +380,22 @@ html {
       </thead>
       <tbody></tbody>
     </table>
-    <footer class="contacts" id="contacts">
-      Contact Us | &#9993; 
+   <footer>
+    <h3> Our Other Services</h3>
+    <div class="projects" id="projects">
+<a href="https://typing-master-iota-orpin.vercel.app/" target="_blank">⌨️ Typing Master</a>
+     
+    </div>
+    
+    <br>
+
+
+          Contact Us | &#9993; 
 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=gkanhere11@gmail.com" style="color:#00ffc3" target="_blank"  >gkanhere11@gmail.com</a> | 
 <a href="https://github.com/Gkanhere" target="_blank" style="color:#00ffc3">GitHub</a>
 
-    </footer>
+  </footer>
+
   </div>
 
  
@@ -473,11 +560,22 @@ const roleDisplay = roles.length ? roles[0] : "Staff";
     document.body.removeChild(link);
   }
 
+ const leftAd = document.getElementById('leftAd');
+  const rightAd = document.getElementById('rightAd');
+
+  // Slide in animation after page load
+  window.addEventListener('load', () => {
+    leftAd.style.left = '10px';
+    rightAd.style.right = '10px';
+  });
+
+
 
    setInterval(updateTimer, 1000);
    setTimeout(() => location.reload(), 3600000);
 
+ 
+
  </script>
 </body>
 </html>
-
